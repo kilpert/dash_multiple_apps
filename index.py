@@ -6,6 +6,7 @@ from app import app
 from apps import app1
 from apps import app2
 from apps import app3
+from apps import app4
 
 
 app.layout = html.Div([
@@ -25,6 +26,8 @@ def display_page(pathname):
         return app2.app_layout()
     elif pathname == '/apps/app3':
         return app3.app_layout()
+    elif pathname == '/apps/app4':
+        return app4.app_layout()
     else:
         return '404'
 
