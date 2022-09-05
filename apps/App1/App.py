@@ -3,12 +3,9 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 
 
-# def info():
-#     return "App1"
-
-
 try:
-    from app import app
+    from application import app
+    print("OK")
 except:
     app = dash.Dash()
 
