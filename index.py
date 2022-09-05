@@ -48,6 +48,8 @@ def display_page(pathname):
         else:
             print(eval(f"apps.{a}.App.app_layout()"))
             return eval(f"apps.{a}.App.app_layout()")
+            print(eval(f"apps.{a}.App.app.layout"))
+            return eval(f"apps.{a}.App.app.layout")
     except:
         return "404" 
 

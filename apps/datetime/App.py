@@ -6,7 +6,7 @@ import datetime
 
 
 try:
-    from app import app
+    from application import app
 except:
     app = dash.Dash()
 

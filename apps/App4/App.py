@@ -3,7 +3,7 @@ from dash import Dash, html, dcc
 
 
 try:
-    from app import app
+    from application import app
 except:
     app = dash.Dash()
 
@@ -42,7 +42,7 @@ def app_layout():
 
 
 if __name__ == "__main__":
-    app.layout = app_layout()
+    app.layout = app_layout
     app.run_server(
         debug=True,
     )

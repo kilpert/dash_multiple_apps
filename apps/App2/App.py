@@ -8,7 +8,7 @@ def info():
 
 
 try:
-    from app import app
+    from application import app
 except:
     app = dash.Dash()
 
@@ -23,8 +23,8 @@ def app_layout():
             ]
         ),
         html.Div(id='app-2-display-value'),
-        html.Div([dcc.Link('Go to App 1', href='/app1')]),
-        html.Div([dcc.Link('Go to App 3', href='/app3')]),
+        html.Div([dcc.Link('Go to App 1', href='/App1')]),
+        html.Div([dcc.Link('Go to App 3', href='/App3')]),
     ])
 
 
@@ -36,7 +36,7 @@ def display_value(value):
 
 
 if __name__ == "__main__":
-    app.layout = app_layout()
+    app.layout = app_layout
     app.run_server(
         debug=True,
     )

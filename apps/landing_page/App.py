@@ -8,7 +8,7 @@ import os
 
 
 try:
-    from app import app
+    from application import app
 except:
     app = dash.Dash()
 
@@ -19,7 +19,7 @@ def app_layout():
 
 def links():
     apps_dict = {}
-    for p in glob.glob("apps/**/app.py"):
+    for p in glob.glob("apps/**/App.py"):
         apps_dict[os.path.basename(os.path.dirname(p))] = os.path.dirname(p)
     print(apps_dict)
     
