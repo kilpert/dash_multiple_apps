@@ -40,11 +40,15 @@ print("{:#^60}".format(f" Requests "))
               [Input('url', 'pathname')])
 def display_page(pathname):
     a = os.path.basename(pathname)
-    print(a)
+    print("App:", f"'{a}'")
+
     try:
-        return app_layouts[a]
+        if a=="":
+            return app_layouts["landing_page"]
+        else:
+            return app_layouts[a]
     except:
-        return "404"
+        return "404" 
 
 
 if __name__ == '__main__':
