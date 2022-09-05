@@ -25,8 +25,8 @@ for a in app_list:
     import_module(m)
 
 
-import_module("apps.app1.app")
-import_module("apps.app2.app")
+## import_module("apps.app1.app")
+## import_module("apps.app2.app")
 
 
 ##print("{:#^60}".format(f" globals() "))

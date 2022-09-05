@@ -3,8 +3,8 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 
 
-def info():
-    return "App1"
+# def info():
+#     return "App1"
 
 
 try:

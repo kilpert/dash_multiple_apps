@@ -31,7 +31,7 @@ def links():
 
 
 if __name__ == "__main__":
-    app.layout = app_layout()
+    app.layout = app_layout
     app.run_server(
         debug=True,
     )
