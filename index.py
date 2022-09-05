@@ -9,23 +9,28 @@ from dash.dependencies import Input, Output
 
 from app import app
 
+import apps # modules
+
 
 ## Apps ##
-apps = [ os.path.basename(os.path.dirname(x)) for x in glob.glob("apps/**/app.py")]
+app_list = [ os.path.basename(os.path.dirname(x)) for x in glob.glob("apps/**/app.py")]
 print("{:#^60}".format(f" Apps "))
-print(apps, len(apps))
+print(app_list, len(app_list))
 
 
-## Layouts ##
-app_layouts = {}
-print("{:#^60}".format(f" Layouts "))
-for a in apps:
-    try:
-        m = import_module(f"apps.{a}.app")
-        app_layouts[a] = m.app_layout()
-        print(a)
-    except:
-        pass
+print("{:#^60}".format(f" App Modules "))
+for a in app_list:
+    m = f"apps.{a}.app"
+    print(m)
+    import_module(m)
+
+
+import_module("apps.app1.app")
+import_module("apps.app2.app")
+
+
+print("{:#^60}".format(f" globals() "))
+print(globals())
 
 
 ## Layout ##
@@ -41,12 +46,11 @@ print("{:#^60}".format(f" Requests "))
 def display_page(pathname):
     a = os.path.basename(pathname)
     print("App:", f"'{a}'")
-
     try:
         if a=="":
-            return app_layouts["landing_page"]
+            return eval(f"apps.landing_page.app.app_layout()")
         else:
-            return app_layouts[a]
+            return eval(f"apps.{a}.app.app_layout()")
     except:
         return "404" 
 

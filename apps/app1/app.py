@@ -3,6 +3,10 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 
 
+def info():
+    return "App1"
+
+
 try:
     from app import app
 except:
@@ -32,7 +36,7 @@ def display_value(value):
 
 
 if __name__ == "__main__":
-    app.layout = app_layout()
+    app.layout = app_layout
     app.run_server(
         debug=True,
     )

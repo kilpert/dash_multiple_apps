@@ -12,15 +12,11 @@ except:
 
 
 def app_layout():
-    return html.Div(serve_layout())
-
-
-def serve_layout():
     return html.H1('Now: ' + str(datetime.datetime.now()))
 
 
 if __name__ == "__main__":
-    app.layout = app_layout()
+    app.layout = app_layout
     app.run_server(
         debug=True,
     )
