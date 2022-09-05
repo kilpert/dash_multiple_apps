@@ -13,9 +13,10 @@ from app import app
 app_layouts = {}
 
 apps = [ os.path.basename(os.path.dirname(x)) for x in glob.glob("apps/**/app.py")]
-print("Apps:", apps )
+print("Apps:", apps, len(apps) )
+
 for a in apps:
-    print("{:#^60}".format(f" Module: {a} "))
+    ##print("{:#^60}".format(f" Module: {a} "))
     m = import_module(f"apps.{a}.app")
     app_layouts[a] = m.app_layout()
 
