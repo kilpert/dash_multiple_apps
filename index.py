@@ -12,16 +12,18 @@ from app import app
 
 ## Apps ##
 apps = [ os.path.basename(os.path.dirname(x)) for x in glob.glob("apps/**/app.py")]
-print("Apps:", apps, len(apps) )
+print("{:#^60}".format(f" Apps "))
+print(apps, len(apps))
 
 
-## Modules ##
+## Layouts ##
 app_layouts = {}
+print("{:#^60}".format(f" Layouts "))
 for a in apps:
     try:
         m = import_module(f"apps.{a}.app")
         app_layouts[a] = m.app_layout()
-        print(f"Layout: {a}")
+        print(a)
     except:
         pass
 
@@ -33,11 +35,14 @@ app.layout = html.Div([
 ])
 
 
+print("{:#^60}".format(f" Requests "))
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
+    a = os.path.basename(pathname)
+    print(a)
     try:
-        return app_layouts[os.path.basename(pathname)]
+        return app_layouts[a]
     except:
         return "404"
 
