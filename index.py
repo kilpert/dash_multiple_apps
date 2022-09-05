@@ -10,17 +10,23 @@ from dash.dependencies import Input, Output
 from app import app
 
 
-app_layouts = {}
-
+## Apps ##
 apps = [ os.path.basename(os.path.dirname(x)) for x in glob.glob("apps/**/app.py")]
 print("Apps:", apps, len(apps) )
 
+
+## Modules ##
+app_layouts = {}
 for a in apps:
-    ##print("{:#^60}".format(f" Module: {a} "))
-    m = import_module(f"apps.{a}.app")
-    app_layouts[a] = m.app_layout()
+    try:
+        m = import_module(f"apps.{a}.app")
+        app_layouts[a] = m.app_layout()
+        print(f"Layout: {a}")
+    except:
+        pass
 
 
+## Layout ##
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
