@@ -9,10 +9,8 @@ import os
 
 try:
     from application import app
-    print("application")
 except:
     app = dash.Dash()
-    print("new app")
 
 
 def app_layout():
@@ -36,7 +34,6 @@ def links():
 
 
 if __name__ == "__main__":
-    print("__main__")
     app.layout = app_layout
     app.run_server(
         debug=True,
