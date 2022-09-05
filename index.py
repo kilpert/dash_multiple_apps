@@ -29,8 +29,8 @@ import_module("apps.app1.app")
 import_module("apps.app2.app")
 
 
-print("{:#^60}".format(f" globals() "))
-print(globals())
+##print("{:#^60}".format(f" globals() "))
+##print(globals())
 
 
 ## Layout ##

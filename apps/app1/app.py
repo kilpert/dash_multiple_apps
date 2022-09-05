@@ -23,8 +23,8 @@ def app_layout():
             ]
         ),
         html.Div(id='app-1-display-value'),
-        html.Div([dcc.Link('Go to App 2', href='/apps/app2')]),
-        html.Div([dcc.Link('Go to App 3', href='/apps/app3')]),
+        html.Div([dcc.Link('Go to App 2', href='/app2')]),
+        html.Div([dcc.Link('Go to App 3', href='/app3')]),
     ])
 
 
