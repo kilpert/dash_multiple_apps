@@ -36,7 +36,7 @@ def links():
     apps_list = find_apps("apps/", "App.py", 3)
     return [
         html.Div([
-            dcc.Link(a, href=a)
+            dcc.Link(a.replace("/", " 🡆 "), href=a)
         ]) for a in apps_list
     ]
 
