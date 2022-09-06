@@ -56,7 +56,7 @@ print("{:#^60}".format(f" Requests "))
               [Input('url', 'pathname')])
 def display_page(pathname):
     a = os.path.basename(pathname)
-    ##print("m:", m)
+    ##print("a:", a)
 
     ## module "path"
     m = pathname.replace("/", ".")
