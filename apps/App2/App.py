@@ -3,10 +3,6 @@ from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 
 
-def info():
-    return "App2"
-
-
 try:
     from application import app
 except:

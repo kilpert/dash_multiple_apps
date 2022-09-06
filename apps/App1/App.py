@@ -5,7 +5,6 @@ from dash.dependencies import Input, Output
 
 try:
     from application import app
-    print("OK")
 except:
     app = dash.Dash()
 
