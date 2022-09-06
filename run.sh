@@ -1,4 +1,4 @@
-##http://localhost:8050/apps/app1
+##http://localhost:8050
 
 python index.py
 
