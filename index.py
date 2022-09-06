@@ -27,7 +27,6 @@ def find_apps(path, name, maxdepth=1):
 
 
 ## Apps ##
-##apps_list = [ os.path.basename(os.path.dirname(x)) for x in glob.glob("apps/**/App.py")]
 apps_list = [a.replace("/", ".") for a in find_apps("apps/", "App.py", 3)]
 print("{:#^60}".format(f" Apps "))
 print(apps_list, len(apps_list))
