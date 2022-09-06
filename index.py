@@ -54,16 +54,18 @@ print("{:#^60}".format(f" Requests "))
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
+    pathname = re.sub("^/", "", pathname)
+    ##print("pathname:", pathname)
+
     a = os.path.basename(pathname)
     ##print("a:", a)
 
     ## module "path"
     m = pathname.replace("/", ".")
-    m = re.sub("^\.", "", m)
     ##print("m:", m)
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f"{now}\tApp: '{a}' ")
+    print(f"{now}\tApp: '{pathname}' ")
     try:
         if m=="":
             m = "landing_page"
