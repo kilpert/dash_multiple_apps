@@ -15,6 +15,8 @@ from application import app
 import apps # modules
 
 
+## Find Apps and load as modules ##
+
 def find_apps(path, name, maxdepth=1):
     """Find filename (e.g. 'App.py') in folder using 'find'."""
     paths = subprocess.check_output(f"find '{path}' -maxdepth {maxdepth} -name '{name}'", shell=True).decode().split()
@@ -26,18 +28,27 @@ def find_apps(path, name, maxdepth=1):
     return apps_list
 
 
-def import_apps_as_modules():
-    ## find Apps
-    apps_list = [a.replace("/", ".") for a in find_apps("apps/", "App.py", 3)]
-    print("{:#^60}".format(f" Apps "))
-    print(apps_list, len(apps_list))
-
-    ## imort apps as modules
-    print("{:#^60}".format(f" App Modules "))
-    for a in apps_list:
-        m = f"apps.{a}.App"
-        print(m)
+def import_app_as_module(pathname):
+    ##print("{:#^60}".format(f" import_app_as_module: '{pathname}' "))
+    pathname = re.sub("^/", "", pathname)
+    a = pathname.replace("/", ".")
+    m = f"apps.{a}.App"
+    try:
         import_module(m)
+    except:
+        pass
+    return m
+
+
+def import_apps_as_modules():
+    apps_list = find_apps("apps/", "App.py", 3)
+    print("apps_list:", apps_list)
+
+    for pathname in apps_list:
+        import_app_as_module(pathname)
+
+
+import_apps_as_modules() # initial loading of apps modules
 
 
 ## Layout ##
@@ -47,37 +58,43 @@ app.layout = html.Div([
 ])
 
 
+## Callback ##
 print("{:#^60}".format(f" Requests "))
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    import_apps_as_modules() # import modules on page reload
+    ##print(f"pathname: '{pathname}'")
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     pathname = re.sub("^/", "", pathname)
-    ##print(f"\n{now}\tApp: '{pathname}' ")
-    print("{:#^60}".format(f" {now} App: '{pathname}' "))
+    ##print("{:#^60}".format(f" {now} App: '{pathname}' "))
+    print(f"{now}\tApp: '{pathname}' ")
 
     app_name = os.path.basename(pathname)
-    print("app_name:", app_name)
+    ##print(f"app_name: '{app_name}'")
 
     ## module "path"
     app_module = pathname.replace("/", ".")
-    print("app_module:", app_module)
  
     try:
         if app_module=="":
             app_module = "landing_page"
+        
+        ## import module if new
+        ##print(f"app_module: '{app_module}'")
+        m = f"apps.{app_module}.App"
+        ##print("m:", m)
+        import_module(m)
 
         layout = f"apps.{app_module}.App.app_layout()"
         ##print("layout:", layout)
         return eval(layout)
     except:
         return "404" 
+    
 
-
-print("{:#^60}".format(f" globals() "))
-print(globals())
+## print("{:#^60}".format(f" globals() "))
+## print(globals())
 
 
 if __name__ == '__main__':
