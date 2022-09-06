@@ -26,21 +26,18 @@ def find_apps(path, name, maxdepth=1):
     return apps_list
 
 
-## Apps ##
-apps_list = [a.replace("/", ".") for a in find_apps("apps/", "App.py", 3)]
-print("{:#^60}".format(f" Apps "))
-print(apps_list, len(apps_list))
+def import_apps_as_modules():
+    ## find Apps
+    apps_list = [a.replace("/", ".") for a in find_apps("apps/", "App.py", 3)]
+    print("{:#^60}".format(f" Apps "))
+    print(apps_list, len(apps_list))
 
-
-print("{:#^60}".format(f" App Modules "))
-for a in apps_list:
-    m = f"apps.{a}.App"
-    print(m)
-    import_module(m)
-
-
-print("{:#^60}".format(f" globals() "))
-print(globals())
+    ## imort apps as modules
+    print("{:#^60}".format(f" App Modules "))
+    for a in apps_list:
+        m = f"apps.{a}.App"
+        print(m)
+        import_module(m)
 
 
 ## Layout ##
@@ -54,27 +51,33 @@ print("{:#^60}".format(f" Requests "))
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    pathname = re.sub("^/", "", pathname)
-    ##print("pathname:", pathname)
-
-    a = os.path.basename(pathname)
-    ##print("a:", a)
-
-    ## module "path"
-    m = pathname.replace("/", ".")
-    ##print("m:", m)
+    import_apps_as_modules() # import modules on page reload
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f"{now}\tApp: '{pathname}' ")
-    try:
-        if m=="":
-            m = "landing_page"
+    pathname = re.sub("^/", "", pathname)
+    ##print(f"\n{now}\tApp: '{pathname}' ")
+    print("{:#^60}".format(f" {now} App: '{pathname}' "))
 
-        layout = f"apps.{m}.App.app_layout()"
+    app_name = os.path.basename(pathname)
+    print("app_name:", app_name)
+
+    ## module "path"
+    app_module = pathname.replace("/", ".")
+    print("app_module:", app_module)
+ 
+    try:
+        if app_module=="":
+            app_module = "landing_page"
+
+        layout = f"apps.{app_module}.App.app_layout()"
         ##print("layout:", layout)
         return eval(layout)
     except:
         return "404" 
+
+
+print("{:#^60}".format(f" globals() "))
+print(globals())
 
 
 if __name__ == '__main__':
